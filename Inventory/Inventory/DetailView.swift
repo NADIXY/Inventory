@@ -18,27 +18,27 @@ struct DetailView: View {
         if let imageDate = item.image, let uiImage = UIImage(data: imageDate) {
             return Image(uiImage: uiImage)
         }
-        return Image("PlaceholderImage")
+        return Image("inventar")
     }
 
     var body: some View {
         Form {
-            Section(header: Text("Item Name")) {
+            Section(header: Text("Name des Inventars")) {
                 TextField("Name", text: $name)
             }
-            Section(header: Text("Quantity")) {
-                TextField("Quantity", text: $quantity)
+            Section(header: Text("Anzahl")) {
+                TextField("Anzahl", text: $quantity)
                     .keyboardType(.numberPad)
             }
-            Section(header: Text("Image")) {
+            Section(header: Text("Bild")) {
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 200)
             }
         }
-        .navigationBarTitle("Item Details", displayMode: .inline)
-        .navigationBarItems(trailing: Button("Save") {
+        .navigationBarTitle("Detail meines Inventars", displayMode: .inline)
+        .navigationBarItems(trailing: Button("Update") {
             if let newQuantity = Int64(quantity), !imageName.isEmpty {
                 viewModel.updateInventoryItem(item: item, name: name, quantity: newQuantity, imageName: imageName)
             }
@@ -46,7 +46,7 @@ struct DetailView: View {
         .onAppear {
             name = item.name ?? ""
             quantity = "\(item.quantity)"
-            imageName = "Placeholder Image Name"
+            imageName = "inventar"
         }
     }
 }

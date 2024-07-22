@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Foundation
+import CoreData
 
 class InventoryViewModel: ObservableObject {
     @Published var inventoryItems: [InventoryItem] = []
