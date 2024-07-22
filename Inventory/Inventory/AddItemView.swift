@@ -27,6 +27,7 @@ struct AddItemView: View {
                 }
                 Section(header: Text("Image Name")) {
                     TextField("Image Name", text: $imageName)
+                        .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
                 }
             }
             .navigationBarTitle("Add Item", displayMode: .inline)

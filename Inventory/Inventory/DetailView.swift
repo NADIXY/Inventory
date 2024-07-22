@@ -13,6 +13,13 @@ struct DetailView: View {
     @State private var name: String = ""
     @State private var quantity: String = ""
     @State private var imageName: String = ""
+    
+    private var image: Image {
+        if let imageDate = item.image, let uiImage = UIImage(data: imageDate) {
+            return Image(uiImage: uiImage)
+        }
+        return Image("PlaceholderImage")
+    }
 
     var body: some View {
         Form {
@@ -24,7 +31,10 @@ struct DetailView: View {
                     .keyboardType(.numberPad)
             }
             Section(header: Text("Image")) {
-                TextField("Image Name", text: $imageName)
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 200)
             }
         }
         .navigationBarTitle("Item Details", displayMode: .inline)
