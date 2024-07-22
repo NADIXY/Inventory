@@ -8,21 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		5D75D22C2C4E5A56005405AF /* InventoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75D22B2C4E5A56005405AF /* InventoryApp.swift */; };
-		5D75D22E2C4E5A56005405AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75D22D2C4E5A56005405AF /* ContentView.swift */; };
 		5D75D2302C4E5A57005405AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D75D22F2C4E5A57005405AF /* Assets.xcassets */; };
 		5D75D2332C4E5A57005405AF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D75D2322C4E5A57005405AF /* Preview Assets.xcassets */; };
-		5D75D2352C4E5A57005405AF /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75D2342C4E5A57005405AF /* Persistence.swift */; };
 		5D75D2382C4E5A57005405AF /* Inventory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5D75D2362C4E5A57005405AF /* Inventory.xcdatamodeld */; };
+		5D75D23F2C4E5CCC005405AF /* PersistenceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75D23E2C4E5CCC005405AF /* PersistenceStore.swift */; };
+		5D75D2412C4E6187005405AF /* InventoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75D2402C4E6187005405AF /* InventoryRepository.swift */; };
+		5D75D2452C4E699B005405AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75D2442C4E699B005405AF /* ContentView.swift */; };
+		5D75D2472C4E6B9A005405AF /* InventoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75D2462C4E6B9A005405AF /* InventoryViewModel.swift */; };
+		5D75D2492C4E6E61005405AF /* AddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75D2482C4E6E61005405AF /* AddItemView.swift */; };
+		5D75D24B2C4E734B005405AF /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D75D24A2C4E734B005405AF /* DetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5D75D2282C4E5A56005405AF /* Inventory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Inventory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D75D22B2C4E5A56005405AF /* InventoryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryApp.swift; sourceTree = "<group>"; };
-		5D75D22D2C4E5A56005405AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5D75D22F2C4E5A57005405AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D75D2322C4E5A57005405AF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		5D75D2342C4E5A57005405AF /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		5D75D2372C4E5A57005405AF /* Inventory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Inventory.xcdatamodel; sourceTree = "<group>"; };
+		5D75D23E2C4E5CCC005405AF /* PersistenceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceStore.swift; sourceTree = "<group>"; };
+		5D75D2402C4E6187005405AF /* InventoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryRepository.swift; sourceTree = "<group>"; };
+		5D75D2442C4E699B005405AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5D75D2462C4E6B9A005405AF /* InventoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryViewModel.swift; sourceTree = "<group>"; };
+		5D75D2482C4E6E61005405AF /* AddItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemView.swift; sourceTree = "<group>"; };
+		5D75D24A2C4E734B005405AF /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,11 +64,15 @@
 			isa = PBXGroup;
 			children = (
 				5D75D22B2C4E5A56005405AF /* InventoryApp.swift */,
-				5D75D22D2C4E5A56005405AF /* ContentView.swift */,
 				5D75D22F2C4E5A57005405AF /* Assets.xcassets */,
-				5D75D2342C4E5A57005405AF /* Persistence.swift */,
 				5D75D2362C4E5A57005405AF /* Inventory.xcdatamodeld */,
 				5D75D2312C4E5A57005405AF /* Preview Content */,
+				5D75D23E2C4E5CCC005405AF /* PersistenceStore.swift */,
+				5D75D2402C4E6187005405AF /* InventoryRepository.swift */,
+				5D75D2442C4E699B005405AF /* ContentView.swift */,
+				5D75D2462C4E6B9A005405AF /* InventoryViewModel.swift */,
+				5D75D2482C4E6E61005405AF /* AddItemView.swift */,
+				5D75D24A2C4E734B005405AF /* DetailView.swift */,
 			);
 			path = Inventory;
 			sourceTree = "<group>";
@@ -144,9 +156,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D75D2382C4E5A57005405AF /* Inventory.xcdatamodeld in Sources */,
-				5D75D2352C4E5A57005405AF /* Persistence.swift in Sources */,
-				5D75D22E2C4E5A56005405AF /* ContentView.swift in Sources */,
+				5D75D24B2C4E734B005405AF /* DetailView.swift in Sources */,
 				5D75D22C2C4E5A56005405AF /* InventoryApp.swift in Sources */,
+				5D75D2452C4E699B005405AF /* ContentView.swift in Sources */,
+				5D75D2412C4E6187005405AF /* InventoryRepository.swift in Sources */,
+				5D75D23F2C4E5CCC005405AF /* PersistenceStore.swift in Sources */,
+				5D75D2472C4E6B9A005405AF /* InventoryViewModel.swift in Sources */,
+				5D75D2492C4E6E61005405AF /* AddItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
