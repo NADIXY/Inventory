@@ -10,12 +10,11 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var viewModel = InventoryViewModel()
     @State private var showAddItemView = false
-    
 
     // Define the columns for the grid
     let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
+        GridItem(.flexible(), spacing: 20),
+        GridItem(.flexible(), spacing: 20)
     ]
 
     var body: some View {
@@ -27,6 +26,7 @@ struct ContentView: View {
                         VStack {
                             NavigationLink(destination: DetailView(viewModel: viewModel, item: item)) {
                                 VStack {
+                                    // Display image with a fixed size
                                     if let imageData = item.image, let image = UIImage(data: imageData) {
                                         Image(uiImage: image)
                                             .resizable()
@@ -40,8 +40,19 @@ struct ContentView: View {
                                             .frame(width: 100, height: 100)
                                             .clipped()
                                     }
-                                    MarqueeText(text: item.name ?? "Unbekannt", font: .headline, foregroundColor: .primary, speed: 50)
-                                        .frame(width: 150)
+                                    
+                                    // Conditional MarqueeText
+                                    if (item.name ?? "").count > 12 {
+                                        MarqueeText(text: item.name ?? "Unknown", font: .headline, foregroundColor: .primary, speed: 0.1)
+                                            .frame(width: 120, height: 20)
+                                    } else {
+                                        Text(item.name ?? "Unknown")
+                                            .font(.headline)
+                                            .lineLimit(1)
+                                          //  .truncationMode(.tail)
+                                            .frame(width: 120)
+                                    }
+                                    
                                     Text("\(item.quantity)")
                                         .font(.subheadline)
                                         .foregroundColor(.gray)
@@ -53,16 +64,16 @@ struct ContentView: View {
                                 Button(action: {
                                     viewModel.deleteInventoryItem(at: IndexSet(integer: index))
                                 }) {
-                                    Label("Eintrag entfernen", systemImage: "trash")
+                                    Label("Delete", systemImage: "trash")
                                 }
                             }
                         }
                         .frame(width: 150, height: 200)
                     }
                 }
-                .padding()
+                .padding([.horizontal, .top], 20)
             }
-            .navigationBarTitle("Mein Inventar")
+            .navigationBarTitle("Inventory")
             .navigationBarItems(trailing: Button(action: {
                 showAddItemView = true
             }) {
@@ -74,8 +85,6 @@ struct ContentView: View {
         }
     }
 }
-
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

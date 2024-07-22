@@ -8,49 +8,54 @@
 import SwiftUI
 
 struct MarqueeText: View {
-    
     let text: String
     let font: Font
     let foregroundColor: Color
-    let speed: CGFloat
-    
+    let speed: Double
+
     @State private var offset: CGFloat = 0
     @State private var textWidth: CGFloat = 0
-    @State private var containerWidth: CGFloat = 0
-    
+
     var body: some View {
         GeometryReader { geometry in
-        //    if text.count > 12 {
+            let containerWidth = geometry.size.width
+
             HStack(spacing: 0) {
                 Text(text)
                     .font(font)
                     .foregroundColor(foregroundColor)
-                    .background(
-                        GeometryReader { textGeometry in
-                            Color.clear
-                                .onAppear {
-                                    textWidth = textGeometry.size.width
-                                }
+                    .background(GeometryReader { geo in
+                        Color.clear.onAppear {
+                            textWidth = geo.size.width
+                            if textWidth > containerWidth {
+                                animateText()
+                            }
                         }
-                    )
-                Text(text)
-                    .font(font)
-                    .foregroundColor(foregroundColor)
+                    })
+                    .offset(x: offset)
+                    .animation(.linear(duration: speed * Double(textWidth)).repeatForever(autoreverses: false))
+
+                if textWidth > containerWidth {
+                    Text(text)
+                        .font(font)
+                        .foregroundColor(foregroundColor)
+                        .offset(x: offset)
+                        .animation(.linear(duration: speed * Double(textWidth)).repeatForever(autoreverses: false))
+                }
             }
-            .offset(x: -offset)
             .onAppear {
-                containerWidth = geometry.size.width
-                startScrolling()
+                if textWidth > containerWidth {
+                    animateText()
+                }
             }
         }
-        .frame(height: 20)
+        .clipped()
     }
-    private func startScrolling() {
-        let animationDuration = Double((textWidth + containerWidth) / speed)
-        
-        withAnimation(Animation.linear(duration: animationDuration).repeatForever(autoreverses: false)) {
-            offset = textWidth
+
+    private func animateText() {
+        offset = -textWidth
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            offset = 0
         }
     }
 }
-                        
