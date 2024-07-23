@@ -18,13 +18,17 @@ class InventoryViewModel: ObservableObject {
         fetchInventoryItems()
     }
     
-    func fetchInventoryItems() {
-        inventoryItems = repository.fetchInventoryItems()
+    func fetchInventoryItems(category: String? = nil, subcategory:String? = nil) {
+        inventoryItems = repository.fetchInventoryItems(category: category, subcategory: subcategory)
     }
     
-    func addInventoryItem(name: String, quantity: Int64, imageName: String) {
-        repository.addInventoryItem(name: name, quantity: quantity, imageName: imageName)
-        fetchInventoryItems()
+    func itemCount(for category: String, subcategory: String) -> Int {
+            return inventoryItems.filter { $0.category == category && $0.subcategory == subcategory }.count
+        }
+    
+    func addInventoryItem(name: String, quantity: Int64, imageName: String, category: String, subcategory: String) {
+        repository.addInventoryItem(name: name, quantity: quantity, imageName: imageName, category: category, subcategory: subcategory)
+            fetchInventoryItems(category: category, subcategory: subcategory)
     }
     
     func deleteInventoryItem(at offsets: IndexSet) {

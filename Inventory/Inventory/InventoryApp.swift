@@ -12,7 +12,7 @@ struct InventoryApp: App {
   
     var body: some Scene {
         WindowGroup {
-            CategorysView()
+            CategorysView(categories: categories)
              
         }
     }

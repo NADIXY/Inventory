@@ -10,44 +10,45 @@ import SwiftUI
 struct Category: Identifiable {
     let id = UUID()
     let name: String
+    let imageName: String
     let subcategories: [String]
 }
 
 let categories = [
-    Category(name: "Elektronik", subcategories: [
+    Category(name: "Elektronik", imageName: "", subcategories: [
         "Smartphones", "Laptops", "Tablets", "Fernseher", "Kameras", "Kopfhörer", "Lautsprecher"
     ]),
-    Category(name: "Haushaltsgeräte", subcategories: [
+    Category(name: "Haushaltsgeräte", imageName: "", subcategories: [
         "Kühlschränke", "Waschmaschinen", "Geschirrspüler", "Mikrowellen", "Staubsauger", "Kaffeemaschinen"
     ]),
-    Category(name: "Möbel", subcategories: [
+    Category(name: "Möbel", imageName: "", subcategories: [
         "Sofas", "Tische", "Stühle", "Betten", "Schränke", "Regale"
     ]),
-    Category(name: "Kleidung", subcategories: [
+    Category(name: "Kleidung", imageName: "", subcategories: [
         "Hemden", "Hosen", "Jacken", "Schuhe", "Accessoires", "Sportbekleidung"
     ]),
-    Category(name: "Bürobedarf", subcategories: [
+    Category(name: "Bürobedarf", imageName: "", subcategories: [
         "Stifte", "Notizbücher", "Ordner", "Drucker", "Papier", "Büroklammern"
     ]),
-    Category(name: "Lebensmittel", subcategories: [
+    Category(name: "Lebensmittel", imageName: "", subcategories: [
         "Obst", "Gemüse", "Fleisch", "Milchprodukte", "Konserven", "Gewürze"
     ]),
-    Category(name: "Spielzeug", subcategories: [
+    Category(name: "Spielzeug", imageName: "", subcategories: [
         "Puppen", "Bauklötze", "Brettspiele", "Videospiele", "Puzzles", "Lernspielzeug"
     ]),
-    Category(name: "Sportartikel", subcategories: [
+    Category(name: "Sportartikel", imageName: "", subcategories: [
         "Fahrräder", "Laufbänder", "Hanteln", "Sportbekleidung", "Bälle", "Campingausrüstung"
     ]),
-    Category(name: "Kosmetik und Pflege", subcategories: [
+    Category(name: "Kosmetik und Pflege", imageName: "",  subcategories: [
         "Hautpflege", "Haarpflege", "Make-up", "Parfums", "Zahnpflege", "Hygieneprodukte"
     ]),
-    Category(name: "Bücher und Medien", subcategories: [
+    Category(name: "Bücher und Medien", imageName: "", subcategories: [
         "Romane", "Sachbücher", "Zeitschriften", "DVDs", "CDs", "E-Books"
     ]),
-    Category(name: "Gartenbedarf", subcategories: [
+    Category(name: "Gartenbedarf", imageName: "", subcategories: [
         "Pflanzen", "Gartengeräte", "Dünger", "Samen", "Gartenmöbel", "Bewässerungssysteme"
     ]),
-    Category(name: "Autozubehör", subcategories: [
+    Category(name: "Autozubehör",imageName: "", subcategories: [
         "Reifen", "Autoelektronik", "Reinigungsprodukte", "Ersatzteile", "Werkzeuge", "Sicherheitsausrüstung"
     ])
 ]

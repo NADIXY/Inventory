@@ -12,13 +12,16 @@ struct DetailView: View {
     var item: InventoryItem
     @State private var name: String = ""
     @State private var quantity: String = ""
-    @State private var imageName: String = ""
-    
+    @State private var selectedImageName: String = ""
+    @State private var showImagePicker: Bool = false
+
     private var image: Image {
-        if let imageDate = item.image, let uiImage = UIImage(data: imageDate) {
+        if let imageData = item.image, let uiImage = UIImage(data: imageData) {
+            return Image(uiImage: uiImage)
+        } else if let uiImage = UIImage(named: selectedImageName) {
             return Image(uiImage: uiImage)
         }
-        return Image("inventar")
+        return Image("inventar") // Default-Bild
     }
 
     var body: some View {
@@ -35,18 +38,24 @@ struct DetailView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 200)
+                Button("Ändere Bild") {
+                    showImagePicker = true
+                }
             }
         }
         .navigationBarTitle("Detail meines Inventars", displayMode: .inline)
         .navigationBarItems(trailing: Button("Update") {
-            if let newQuantity = Int64(quantity), !imageName.isEmpty {
-                viewModel.updateInventoryItem(item: item, name: name, quantity: newQuantity, imageName: imageName)
+            if let newQuantity = Int64(quantity) {
+                viewModel.updateInventoryItem(item: item, name: name, quantity: newQuantity, imageName: selectedImageName)
             }
         })
         .onAppear {
             name = item.name ?? ""
             quantity = "\(item.quantity)"
-            imageName = "inventar"
+            selectedImageName = "" // Hier kannst du einen Standardwert setzen, wenn benötigt
+        }
+        .sheet(isPresented: $showImagePicker) {
+            ImagePickerView(selectedImageName: $selectedImageName)
         }
     }
 }

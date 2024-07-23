@@ -12,7 +12,7 @@ struct ImagePickerView: View {
     @Environment(\.presentationMode) var presentationMode
 
     
-    let imageNames = ["gymnastikmatte", "sportbh", "trinkflasche", "taucherbrille", "gabel"]
+    let imageNames = ["gymnastikmatte", "sportbh", "trinkflasche", "taucherbrille", "gabel", "tablet"]
 
     var body: some View {
         NavigationStack {

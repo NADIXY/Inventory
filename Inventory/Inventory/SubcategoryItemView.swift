@@ -1,5 +1,5 @@
 //
-//  CategoryItemView.swift
+//  SubcategoryItemView.swift
 //  Inventory
 //
 //  Created by Lutz Brückner on 23.07.24.
@@ -7,17 +7,21 @@
 
 import SwiftUI
 
-struct CategoryItemView: View {
-    let category: Category
+struct SubcategoryItemView: View {
+    let subcategory: String
+    let itemCount: Int
     
     var body: some View {
         VStack {
-            Image(category.imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 100, height: 100)
-            Text(category.name)
+            Text(subcategory)
                 .font(.headline)
+            Text("\(itemCount)")
+                .font(.caption)
+                .padding(5)
+                .background(Color.red)
+                .foregroundColor(.white)
+                .clipShape(Circle())
+                .offset(x: 50, y: -50)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)

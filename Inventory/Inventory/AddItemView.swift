@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct AddItemView: View {
-    
     @Environment(\.presentationMode) var presentationMode
     @State private var name: String = ""
     @State private var quantity: String = ""
     @State private var imageName: String = ""
     @State private var showImagePicker = false
     @StateObject var viewModel: InventoryViewModel
+    let category: String
+    let subcategory: String
     
     var body: some View {
         NavigationStack {
@@ -43,7 +44,7 @@ struct AddItemView: View {
                 presentationMode.wrappedValue.dismiss()
             }, trailing: Button("Save") {
                 if let quantity = Int64(quantity), !imageName.isEmpty {
-                    viewModel.addInventoryItem(name: name, quantity: quantity, imageName: imageName)
+                    viewModel.addInventoryItem(name: name, quantity: quantity, imageName: imageName, category: category, subcategory: subcategory)
                     presentationMode.wrappedValue.dismiss()
                 }
             })
@@ -56,6 +57,6 @@ struct AddItemView: View {
 
 struct AddItemView_Previews: PreviewProvider {
     static var previews: some View {
-        AddItemView(viewModel: InventoryViewModel())
+        AddItemView(viewModel: InventoryViewModel(), category: "Sport", subcategory: "Yoga")
     }
 }

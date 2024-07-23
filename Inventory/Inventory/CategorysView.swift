@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CategorysView: View {
+    let categories: [Category]
     let columns = [
         GridItem(.fixed(150), spacing: 20),
         GridItem(.fixed(150), spacing: 20)
@@ -37,6 +38,3 @@ struct CategorysView: View {
     }
 }
 
-#Preview {
-    CategorysView()
-}

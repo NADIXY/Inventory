@@ -11,8 +11,23 @@ import CoreData
 class InventoryRepository {
     private let store = PersistenceStore.shared
     
-    func fetchInventoryItems() -> [InventoryItem] {
+    func fetchInventoryItems(category: String? = nil, subcategory: String? = nil) -> [InventoryItem] {
         let request: NSFetchRequest<InventoryItem> = InventoryItem.fetchRequest()
+        
+        var predicates = [NSPredicate]()
+        
+        if let category = category {
+                    predicates.append(NSPredicate(format: "category == %@", category))
+                }
+                
+                if let subcategory = subcategory {
+                    predicates.append(NSPredicate(format: "subcategory == %@", subcategory))
+                }
+                
+                if !predicates.isEmpty {
+                    request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+                }
+        
         do {
             return try store.context.fetch(request)
         } catch {
@@ -21,12 +36,14 @@ class InventoryRepository {
         }
     }
     
-    func addInventoryItem(name: String, quantity: Int64, imageName: String) {
+    func addInventoryItem(name: String, quantity: Int64, imageName: String, category: String, subcategory: String) {
         let newItem = InventoryItem(context: store.context)
         newItem.id = UUID()
         newItem.name = name
         newItem.quantity = quantity
         newItem.image = loadImageData(from: imageName)
+        newItem.category = category
+        newItem.subcategory = subcategory
         saveContext()
     }
     
