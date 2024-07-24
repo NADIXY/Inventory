@@ -56,10 +56,11 @@ class InventoryRepository {
         }
     }
     
-    func addInventoryItem(name: String, quantity: Int64, imageName: String, category: String, subcategory: String) {
+    func addInventoryItem(name: String, quantity: Int64, imageName: String, info: String, category: String, subcategory: String) {
         let newItem = InventoryItem(context: store.context)
         newItem.id = UUID()
         newItem.name = name
+        newItem.info = info
         newItem.quantity = quantity
         newItem.image = loadImageData(from: imageName)
         newItem.category = category
@@ -72,9 +73,10 @@ class InventoryRepository {
         saveContext()
     }
     
-    func updateInventoryItem(item: InventoryItem, name: String, quantity: Int64, imageName: String) {
+    func updateInventoryItem(item: InventoryItem, name: String, quantity: Int64, info: String, imageName: String) {
         item.name = name
         item.quantity = quantity
+        item.info = info
         item.image = loadImageData(from: imageName)
         saveContext()
     }

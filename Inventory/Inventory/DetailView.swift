@@ -12,6 +12,7 @@ struct DetailView: View {
     var item: InventoryItem
     @State private var name: String = ""
     @State private var quantity: String = ""
+    @State private var info: String = ""
     @State private var selectedImageName: String = ""
     @State private var showImagePicker: Bool = false
 
@@ -28,6 +29,9 @@ struct DetailView: View {
         Form {
             Section(header: Text("Name des Inventars")) {
                 TextField("Name", text: $name)
+            }
+            Section(header: Text("Info des Inventars")) {
+                TextField("Info", text: $info)
             }
             Section(header: Text("Anzahl")) {
                 TextField("Anzahl", text: $quantity)
@@ -46,13 +50,14 @@ struct DetailView: View {
         .navigationBarTitle("Detail meines Inventars", displayMode: .inline)
         .navigationBarItems(trailing: Button("Update") {
             if let newQuantity = Int64(quantity) {
-                viewModel.updateInventoryItem(item: item, name: name, quantity: newQuantity, imageName: selectedImageName)
+                viewModel.updateInventoryItem(item: item, name: name, quantity: newQuantity, imageName: selectedImageName, info: info)
                 viewModel.fetchInventoryItems(category: item.category ?? "")
             }
         })
         .onAppear {
             name = item.name ?? ""
             quantity = "\(item.quantity)"
+            info = item.info ?? ""
             selectedImageName = "" // Hier kannst du einen Standardwert setzen, wenn benötigt
         }
         .sheet(isPresented: $showImagePicker) {

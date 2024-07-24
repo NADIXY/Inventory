@@ -11,52 +11,63 @@ struct AddItemView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var name: String = ""
     @State private var quantity: String = ""
+    @State private var info: String = ""
     @State private var imageName: String = ""
-    @State private var showImagePicker = false
+    @State private var showImageRoller = false
     @StateObject var viewModel: InventoryViewModel
     let category: String
     let subcategory: String
     
+    // Bildnamen aus der Enum abrufen
+    var imageNames: [String] {
+        ImageAsset.allCases.map { $0.name }
+    }
+
     var body: some View {
         NavigationStack {
-            Form {
-                Section(header: Text("Name des Inventars")) {
-                    TextField("Name", text: $name)
-                }
-                Section(header: Text("Anzahl")) {
-                    TextField("Anzahl", text: $quantity)
-                        .keyboardType(.numberPad)
-                }
-                Section(header: Text("Bilder")) {
-                    HStack {
-                        Text(imageName.isEmpty ? "Suche ein Bild" : imageName)
-                        Spacer()
-                        Button(action: {
-                            showImagePicker.toggle()
-                        }) {
-                            Image(systemName: "photo")
-                        }
+            VStack {
+                Form {
+                    Section(header: Text("Name des Inventars")) {
+                        TextField("Name", text: $name)
+                    }
+                    Section(header: Text("Information")) {
+                        TextField("Info", text: $info)
+                    }
+                    Section(header: Text("Anzahl")) {
+                        TextField("Anzahl", text: $quantity)
+                            .keyboardType(.numberPad)
                     }
                 }
+                
+                
+                ImageRollerView(selectedImageName: $imageName, imageNames: imageNames)
+                    .frame(height: 200)
+                    .padding()
+                    .border(Color.gray.opacity(0.5), width: 1) 
+                
+                Spacer()
+                
+                HStack {
+                    Button(action: {
+                        if let quantity = Int64(quantity), !imageName.isEmpty {
+                            viewModel.addInventoryItem(name: name, quantity: quantity, imageName: imageName, info: info, category: category, subcategory: subcategory)
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }) {
+                        Text("Save")
+                            .bold()
+                    }
+                    
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Text("Cancel")
+                            .bold()
+                    }
+                }
+                .padding()
             }
             .navigationBarTitle("Add Item", displayMode: .inline)
-            .navigationBarItems(leading: Button("Cancel") {
-                presentationMode.wrappedValue.dismiss()
-            }, trailing: Button("Save") {
-                if let quantity = Int64(quantity), !imageName.isEmpty {
-                    viewModel.addInventoryItem(name: name, quantity: quantity, imageName: imageName, category: category, subcategory: subcategory)
-                    presentationMode.wrappedValue.dismiss()
-                }
-            })
-            .sheet(isPresented: $showImagePicker) {
-                ImagePickerView(selectedImageName: $imageName)
-            }
         }
-    }
-}
-
-struct AddItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddItemView(viewModel: InventoryViewModel(), category: "Sport", subcategory: "Yoga")
     }
 }

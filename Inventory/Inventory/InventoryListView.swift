@@ -35,6 +35,8 @@ struct InventoryListView: View {
                             VStack(alignment: .leading) {
                                 Text(item.name ?? "Unknown")
                                     .font(.headline)
+                                Text(item.info ?? "Unbekannt")
+                                    .font(.headline)
                                 Text("\(item.quantity)")
                                     .font(.subheadline)
                                     .foregroundColor(.gray)
