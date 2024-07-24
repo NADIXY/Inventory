@@ -16,6 +16,7 @@ class InventoryViewModel: ObservableObject {
     private let repository = InventoryRepository()
     
     init() {
+        repository.preloadCategories(categories)
         fetchInventoryItems()
         fetchCategories()
     }
@@ -48,7 +49,7 @@ class InventoryViewModel: ObservableObject {
     
     func fetchCategories() {
         categories = repository.fetchCategories()
-        fetchInventoryItems()
+        
     }
     
     func addCategory(name: String, imageName: String, subcategories: [String]) {

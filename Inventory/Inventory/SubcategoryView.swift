@@ -10,6 +10,7 @@ import SwiftUI
 struct SubcategoryView: View {
     let category: Category
     @EnvironmentObject var viewModel: InventoryViewModel
+   
     let columns = [
         GridItem(.fixed(150), spacing: 20),
         GridItem(.fixed(150), spacing: 20)

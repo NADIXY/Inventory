@@ -8,55 +8,50 @@
 import SwiftUI
 
 struct AddCategoryView: View {
+    @ObservedObject var viewModel: InventoryViewModel
     @Environment(\.presentationMode) var presentationMode
+
     @State private var name = ""
     @State private var imageName = ""
-    @State private var subcategories = [String]()
-    @State private var subcategoryInput = ""
-    @ObservedObject var viewModel: InventoryViewModel
+    @State private var subcategories: [String] = []
+    @State private var newSubcategory = ""
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             Form {
-                Section(header: Text("Catergory Details")) {
+                Section(header: Text("Category Details")) {
                     TextField("Name", text: $name)
                     TextField("Image Name", text: $imageName)
                 }
                 
                 Section(header: Text("Subcategories")) {
-                    HStack {
-                        TextField("Subcategory", text: $subcategoryInput)
-                        Button(action: {
-                            if !subcategoryInput.isEmpty {
-                                subcategories.append(subcategoryInput)
-                                subcategoryInput = ""
-                            }
-                        }) {
-                            Text("Add")
-                        }
+                    ForEach(subcategories, id: \.self) { subcategory in
+                        Text(subcategory)
                     }
-                    
-                    List {
-                        ForEach(subcategories, id: \.self) { subcategory in
-                            Text(subcategory)
+                    TextField("New Subcategory", text: $newSubcategory)
+                    Button(action: {
+                        if !newSubcategory.isEmpty {
+                            subcategories.append(newSubcategory)
+                            newSubcategory = ""
                         }
-                        .onDelete(perform: deleteSubcategory)
+                    }) {
+                        Text("Add Subcategory")
                     }
                 }
+                
+                Button(action: {
+                    viewModel.addCategory(name: name, imageName: imageName, subcategories: subcategories)
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Save")
+                }
             }
-                            .navigationTitle("Kategorie hinzufügen")
-                            .navigationBarItems(trailing: Button("Save") {
-                                viewModel.addCategory(name: name, imageName: imageName, subcategories: subcategories)
-                                presentationMode.wrappedValue.dismiss()
-                            })
-                                  
+            .navigationBarTitle("Add Category")
+            .navigationBarItems(trailing: Button(action: {
+                presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("Cancel")
+            })
         }
     }
-    
-    private func deleteSubcategory(at offsets: IndexSet) {
-        subcategories.remove(atOffsets: offsets)
-    }
 }
-
-
-

@@ -11,22 +11,42 @@ import CoreData
 class InventoryRepository {
     private let store = PersistenceStore.shared
     
+    func preloadCategories(_ categories: [Category]) {
+        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "CategoryEntity")
+        request.resultType = .managedObjectResultType
+        do {
+            let count = try store.context.count(for: request)
+            if count == 0 {
+                for category in categories {
+                    let newCategory = NSEntityDescription.insertNewObject(forEntityName: "CategoryEntity", into: store.context)
+                    newCategory.setValue(UUID(), forKey: "id")
+                    newCategory.setValue(category.name, forKey: "name")
+                    newCategory.setValue(category.imageName, forKey: "imageName")
+                    newCategory.setValue(category.subcategories, forKey: "subcategories")
+                }
+                saveContext()
+            }
+        } catch {
+            print("Error preloading categories: \(error)")
+        }
+    }
+    
     func fetchInventoryItems(category: String? = nil, subcategory: String? = nil) -> [InventoryItem] {
         let request: NSFetchRequest<InventoryItem> = InventoryItem.fetchRequest()
         
         var predicates = [NSPredicate]()
         
         if let category = category {
-                    predicates.append(NSPredicate(format: "category == %@", category))
-                }
-                
-                if let subcategory = subcategory {
-                    predicates.append(NSPredicate(format: "subcategory == %@", subcategory))
-                }
-                
-                if !predicates.isEmpty {
-                    request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
-                }
+            predicates.append(NSPredicate(format: "category == %@", category))
+        }
+        
+        if let subcategory = subcategory {
+            predicates.append(NSPredicate(format: "subcategory == %@", subcategory))
+        }
+        
+        if !predicates.isEmpty {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        }
         
         do {
             return try store.context.fetch(request)
@@ -73,10 +93,9 @@ class InventoryRepository {
             return results.compactMap { result in
                 guard let category = result as? NSManagedObject else { return nil }
                 return Category(
-                    
-                                name: category.value(forKey: "name") as! String,
-                                imageName: category.value(forKey: "imageName") as! String,
-                                subcategories: (category.value(forKey: "subcategories") as? [String]) ?? []
+                    name: category.value(forKey: "name") as! String,
+                    imageName: category.value(forKey: "imageName") as! String,
+                    subcategories: (category.value(forKey: "subcategories") as? [String]) ?? []
                 )
             }
         } catch {
@@ -84,16 +103,16 @@ class InventoryRepository {
             return []
         }
     }
-       
+    
     func addCategory(name: String, imageName: String, subcategories: [String]) {
         let newCategory = NSEntityDescription.insertNewObject(forEntityName: "CategoryEntity", into: store.context)
-                newCategory.setValue(UUID(), forKey: "id")
-                newCategory.setValue(name, forKey: "name")
-                newCategory.setValue(imageName, forKey: "imageName")
-                newCategory.setValue(subcategories, forKey: "subcategories")
+        newCategory.setValue(UUID(), forKey: "id")
+        newCategory.setValue(name, forKey: "name")
+        newCategory.setValue(imageName, forKey: "imageName")
+        newCategory.setValue(subcategories, forKey: "subcategories")
         
-            saveContext()
-        }
+        saveContext()
+    }
     
     private func saveContext() {
         if store.context.hasChanges {

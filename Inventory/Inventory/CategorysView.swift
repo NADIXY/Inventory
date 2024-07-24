@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct CategorysView: View {
-    let categories: [Category]
-    @State private var showAddCategory = false
     @EnvironmentObject var viewModel: InventoryViewModel
-   
+    @State private var showAddCategory = false
+
     let columns = [
         GridItem(.fixed(150), spacing: 20),
         GridItem(.fixed(150), spacing: 20)
@@ -27,7 +26,7 @@ struct CategorysView: View {
                 
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(categories) { category in
+                        ForEach(viewModel.categories) { category in
                             NavigationLink(destination: SubcategoryView(category: category)) {
                                 CategoryItemView(category: category)
                             }
@@ -36,10 +35,12 @@ struct CategorysView: View {
                     .padding()
                 }
             }
-            .navigationTitle("Hauptkategorien")
-            .font(.custom("Georgia", size: 28))
-            .foregroundColor(.gray)
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Hauptkategorien")
+                        .font(.custom("Georgia", size: 28))
+                        .foregroundColor(.gray)
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         showAddCategory.toggle()
@@ -51,6 +52,9 @@ struct CategorysView: View {
                         AddCategoryView(viewModel: viewModel)
                     }
                 }
+            }
+            .onAppear {
+                viewModel.fetchCategories()
             }
         }
     }

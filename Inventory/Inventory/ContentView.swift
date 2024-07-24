@@ -16,7 +16,8 @@ struct ContentView: View {
     var body: some View {
         Group {
             if isActive {
-                CategorysView(categories: categories)
+                CategorysView()
+                    .environmentObject(viewModel)
                     
             } else {
                 ZStack {
