@@ -6,6 +6,17 @@
 //
 
 import SwiftUI
+import CoreData
+
+
+struct Inventory: Identifiable {
+    let id: UUID
+    let name: String
+    let quantity: Int64
+    let image: Data?
+    let category: String
+    let subcategory: String
+}
 
 struct Category: Identifiable {
     let id = UUID()

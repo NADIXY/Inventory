@@ -64,6 +64,37 @@ class InventoryRepository {
         return uiImage.pngData()
     }
     
+    func fetchCategories() -> [Category] {
+        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "CategoryEntity")
+        request.resultType = .managedObjectResultType
+        
+        do {
+            let results = try store.context.fetch(request)
+            return results.compactMap { result in
+                guard let category = result as? NSManagedObject else { return nil }
+                return Category(
+                    
+                                name: category.value(forKey: "name") as! String,
+                                imageName: category.value(forKey: "imageName") as! String,
+                                subcategories: (category.value(forKey: "subcategories") as? [String]) ?? []
+                )
+            }
+        } catch {
+            print("Error fetching categories: \(error)")
+            return []
+        }
+    }
+       
+    func addCategory(name: String, imageName: String, subcategories: [String]) {
+        let newCategory = NSEntityDescription.insertNewObject(forEntityName: "CategoryEntity", into: store.context)
+                newCategory.setValue(UUID(), forKey: "id")
+                newCategory.setValue(name, forKey: "name")
+                newCategory.setValue(imageName, forKey: "imageName")
+                newCategory.setValue(subcategories, forKey: "subcategories")
+        
+            saveContext()
+        }
+    
     private func saveContext() {
         if store.context.hasChanges {
             do {

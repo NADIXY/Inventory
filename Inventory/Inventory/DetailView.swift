@@ -47,6 +47,7 @@ struct DetailView: View {
         .navigationBarItems(trailing: Button("Update") {
             if let newQuantity = Int64(quantity) {
                 viewModel.updateInventoryItem(item: item, name: name, quantity: newQuantity, imageName: selectedImageName)
+                viewModel.fetchInventoryItems(category: item.category ?? "")
             }
         })
         .onAppear {

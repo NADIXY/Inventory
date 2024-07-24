@@ -9,11 +9,10 @@ import SwiftUI
 
 @main
 struct InventoryApp: App {
-  
     var body: some Scene {
         WindowGroup {
-            CategorysView(categories: categories)
-             
+            ContentView()
+                .environmentObject(InventoryViewModel())
         }
     }
 }

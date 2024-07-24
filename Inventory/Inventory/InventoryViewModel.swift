@@ -11,11 +11,13 @@ import CoreData
 
 class InventoryViewModel: ObservableObject {
     @Published var inventoryItems: [InventoryItem] = []
+    @Published var categories: [Category] = []
     
     private let repository = InventoryRepository()
     
     init() {
         fetchInventoryItems()
+        fetchCategories()
     }
     
     func fetchInventoryItems(category: String? = nil, subcategory:String? = nil) {
@@ -43,6 +45,16 @@ class InventoryViewModel: ObservableObject {
         repository.updateInventoryItem(item: item, name: name, quantity: quantity, imageName: imageName)
         fetchInventoryItems()
     }
+    
+    func fetchCategories() {
+        categories = repository.fetchCategories()
+    }
+    
+    func addCategory(name: String, imageName: String, subcategories: [String]) {
+        repository.addCategory(name: name, imageName: imageName, subcategories: subcategories)
+        fetchCategories()
+    }
+    
 }
 
 

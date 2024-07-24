@@ -2,86 +2,57 @@
 //  ContentView.swift
 //  Inventory
 //
-//  Created by Lutz Brückner on 22.07.24.
+//  Created by Lutz Brückner on 23.07.24.
 //
 
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var viewModel = InventoryViewModel()
-    @State private var showAddItemView = false
-
-    // Define the columns for the grid
-    let columns = [
-        GridItem(.flexible(), spacing: 20),
-        GridItem(.flexible(), spacing: 20)
-    ]
+    @State private var isActive = false
+    @State private var scale: CGFloat = 3.0
+    @State private var opacity: Double = 0.0
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(viewModel.inventoryItems.indices, id: \.self) { index in
-                        let item = viewModel.inventoryItems[index]
-                        VStack {
-                            NavigationLink(destination: DetailView(viewModel: viewModel, item: item)) {
-                                VStack {
-                                    // Display image with a fixed size
-                                    if let imageData = item.image, let image = UIImage(data: imageData) {
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 100, height: 100)
-                                            .clipped()
-                                    } else {
-                                        Image("inventar")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 100, height: 100)
-                                            .clipped()
-                                    }
-                                    
-                                    // Conditional MarqueeText
-                                    if (item.name ?? "").count > 12 {
-                                        MarqueeText(text: item.name ?? "Unknown", font: .headline, foregroundColor: .primary, speed: 0.1)
-                                            .frame(width: 120, height: 20)
-                                    } else {
-                                        Text(item.name ?? "Unknown")
-                                            .font(.headline)
-                                            .lineLimit(1)
-                                          //  .truncationMode(.tail)
-                                            .frame(width: 120)
-                                    }
-                                    
-                                    Text("\(item.quantity)")
-                                        .font(.subheadline)
-                                        .foregroundColor(.gray)
-                                }
-                                .padding()
-                                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
-                            }
-                            .contextMenu {
-                                Button(action: {
-                                    viewModel.deleteInventoryItem(at: IndexSet(integer: index))
-                                }) {
-                                    Label("Delete", systemImage: "trash")
-                                }
+        ZStack {
+            
+            LinearGradient(gradient: Gradient(colors: [Color.white, Color.gray]),
+                           startPoint: .top,
+                           endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+            
+            
+            VStack {
+                Text("INVENTORY")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.black)
+                    .scaleEffect(scale)
+                    .opacity(opacity) 
+                    .onAppear {
+                        withAnimation(Animation.easeInOut(duration: 2.0)) {
+                            scale = 1.0
+                            opacity = 1.0
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                            withAnimation {
+                                isActive = true
                             }
                         }
-                        .frame(width: 150, height: 200)
                     }
-                }
-                .padding([.horizontal, .top], 20)
             }
-            .navigationBarTitle("Inventory")
-            .navigationBarItems(trailing: Button(action: {
-                showAddItemView = true
-            }) {
-                Image(systemName: "plus")
-            })
-        }
-        .sheet(isPresented: $showAddItemView) {
-            AddItemView(viewModel: viewModel)
+            .navigationTitle("")
+            .navigationBarHidden(true)
+            
+            NavigationLink(
+                destination: CategorysView(categories: categories)
+                    .environmentObject(InventoryViewModel()),
+            isActive: $isActive
+            ) {
+                EmptyView()
+            }
+            
+            }
         }
     }
 }
@@ -89,5 +60,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(InventoryViewModel())
     }
 }

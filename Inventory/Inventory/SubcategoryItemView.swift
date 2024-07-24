@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct SubcategoryItemView: View {
-    let subcategory: String
     let itemCount: Int
+    let subcategory: String
     
+   
     var body: some View {
         VStack {
             Text(subcategory)
@@ -18,8 +19,8 @@ struct SubcategoryItemView: View {
             Text("\(itemCount)")
                 .font(.caption)
                 .padding(5)
-                .background(Color.red)
-                .foregroundColor(.white)
+                .background(Color.white)
+                .foregroundColor(.black)
                 .clipShape(Circle())
                 .offset(x: 50, y: -50)
         }

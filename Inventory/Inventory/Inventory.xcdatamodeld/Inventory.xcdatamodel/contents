@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23G5075b" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CategoryEntity" representedClassName="CategoryEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="imageName" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="subcategories" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer"/>
+        <relationship name="items" toMany="YES" deletionRule="Nullify" destinationEntity="InventoryItem" inverseName="categoryRelation" inverseEntity="InventoryItem"/>
+    </entity>
     <entity name="InventoryItem" representedClassName="InventoryItem" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -7,11 +14,6 @@
         <attribute name="name" attributeType="String"/>
         <attribute name="quantity" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="subcategory" optional="YES" attributeType="String"/>
-        <relationship name="notes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notes" inverseName="inventory" inverseEntity="Notes"/>
-    </entity>
-    <entity name="Notes" representedClassName="Notes" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="text" optional="YES" attributeType="String"/>
-        <relationship name="inventory" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="InventoryItem" inverseName="notes" inverseEntity="InventoryItem"/>
+        <relationship name="categoryRelation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryEntity" inverseName="items" inverseEntity="CategoryEntity"/>
     </entity>
 </model>

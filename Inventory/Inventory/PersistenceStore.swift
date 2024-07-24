@@ -9,18 +9,21 @@ import Foundation
 import CoreData
 
 class PersistenceStore {
-    var context: NSManagedObjectContext { container.viewContext }
-    private let container: NSPersistentContainer
+   static let shared = PersistenceStore()
     
-    static let shared = PersistenceStore()
-    
-    init() {
-        container = NSPersistentContainer(name: "Inventory")
-        container.viewContext.automaticallyMergesChangesFromParent = true
-        container.loadPersistentStores { _, error in
-            if let error = error as? NSError {
+    init() {}
+       
+    lazy var container: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Inventory")
+        container.loadPersistentStores { description, error in
+            if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         }
+        return container
+    }()
+    
+    var context: NSManagedObjectContext {
+        return container.viewContext
     }
 }
