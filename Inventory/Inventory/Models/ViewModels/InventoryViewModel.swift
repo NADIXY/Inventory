@@ -11,12 +11,12 @@ import CoreData
 
 class InventoryViewModel: ObservableObject {
     @Published var inventoryItems: [InventoryItem] = []
-    @Published var categories: [Category] = []
+    @Published var categories: [CategoryEntity] = []
     
     private let repository = InventoryRepository()
     
     init() {
-        repository.preloadCategories(categories)
+        
         fetchInventoryItems()
         fetchCategories()
     }
@@ -58,7 +58,7 @@ class InventoryViewModel: ObservableObject {
         fetchCategories()
     }
     
-    func deleteCategory(category: Category) {
+    func deleteCategory(category: CategoryEntity) {
         repository.deleteCategory(category: category)
         fetchCategories()
     }

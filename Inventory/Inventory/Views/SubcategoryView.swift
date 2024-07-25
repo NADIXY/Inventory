@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SubcategoryView: View {
-    let category: Category
+    let category: CategoryEntity
     @EnvironmentObject var viewModel: InventoryViewModel
    
     let columns = [
@@ -26,17 +26,21 @@ struct SubcategoryView: View {
                 
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(category.subcategories, id: \.self) { subcategory in
-                            NavigationLink(destination: InventoryListView(category: category.name, subcategory: subcategory)) {
-                                SubcategoryItemView(itemCount: viewModel.itemCount(for: category.name, subcategory: subcategory), subcategory: subcategory)
-                            }
-                            .contextMenu {
-                                Button(action: {
-                                    viewModel.deleteSubcategory(categoryName: category.name, subcategoryName: subcategory)
-                                    viewModel.fetchCategories()
-                                }) {
-                                    Text("Unterkategorie löschen")
-                                    Image(systemName: "trash")
+                        if let subcategories = category.subcategories as? [String] {
+                            ForEach(subcategories, id: \.self) { subcategory in
+                                if let categoryName = category.name {
+                                    NavigationLink(destination: InventoryListView(category: categoryName, subcategory: subcategory)) {
+                                        SubcategoryItemView(itemCount: viewModel.itemCount(for: categoryName, subcategory: subcategory), subcategory: subcategory)
+                                    }
+                                    .contextMenu {
+                                        Button(action: {
+                                            viewModel.deleteSubcategory(categoryName: categoryName, subcategoryName: subcategory)
+                                            viewModel.fetchCategories()
+                                        }) {
+                                            Text("Unterkategorie löschen")
+                                            Image(systemName: "trash")
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -46,13 +50,17 @@ struct SubcategoryView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text(category.name)
-                        .font(.custom("Georgia", size: 28))
-                        .foregroundColor(.gray)
+                    if let categoryName = category.name {
+                        Text(categoryName)
+                            .font(.custom("Georgia", size: 28))
+                            .foregroundColor(.gray)
+                    }
                 }
             }
             .onAppear {
-                viewModel.fetchInventoryItems(category: category.name)
+                if let categoryName = category.name {
+                    viewModel.fetchInventoryItems(category: categoryName)
+                }
             }
         }
     }

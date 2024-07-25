@@ -8,15 +8,17 @@
 import SwiftUI
 
 struct CategoryItemView: View {
-    let category: Category
+    let category: CategoryEntity
     
     var body: some View {
         VStack {
-            Image(category.imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 100, height: 100)
-            Text(category.name)
+            if let imageName = category.imageName {
+                Image(imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 100, height: 100)
+            }
+            Text(category.name ?? "Unbekannt")
                 .font(.headline)
         }
         .padding()

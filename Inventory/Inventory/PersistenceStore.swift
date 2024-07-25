@@ -9,21 +9,16 @@ import Foundation
 import CoreData
 
 class PersistenceStore {
-   static let shared = PersistenceStore()
-    
-    init() {}
-       
-    lazy var container: NSPersistentContainer = {
+    static let shared = PersistenceStore()
+    let context: NSManagedObjectContext
+
+    private init() {
         let container = NSPersistentContainer(name: "Inventory")
         container.loadPersistentStores { description, error in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+            if let error = error {
+                fatalError("Unable to load persistent stores: \(error)")
             }
         }
-        return container
-    }()
-    
-    var context: NSManagedObjectContext {
-        return container.viewContext
+        context = container.viewContext
     }
 }

@@ -12,17 +12,17 @@ class InventoryRepository {
     private let store = PersistenceStore.shared
     
     func preloadCategories(_ categories: [Category]) {
-        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "CategoryEntity")
-        request.resultType = .managedObjectResultType
+        let request = CategoryEntity.fetchRequest()
+        
         do {
             let count = try store.context.count(for: request)
             if count == 0 {
                 for category in categories {
-                    let newCategory = NSEntityDescription.insertNewObject(forEntityName: "CategoryEntity", into: store.context)
-                    newCategory.setValue(UUID(), forKey: "id")
-                    newCategory.setValue(category.name, forKey: "name")
-                    newCategory.setValue(category.imageName, forKey: "imageName")
-                    newCategory.setValue(category.subcategories, forKey: "subcategories")
+                    let newCategory = CategoryEntity(context: store.context)
+                    newCategory.id = UUID()
+                    newCategory.name = category.name
+                    newCategory.imageName = category.imageName
+                    newCategory.subcategories = category.subcategories as NSObject
                 }
                 saveContext()
             }
@@ -88,67 +88,64 @@ class InventoryRepository {
         return uiImage.pngData()
     }
     
-    func fetchCategories() -> [Category] {
-        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "CategoryEntity")
+    func fetchCategories() -> [CategoryEntity] {
+        let request = CategoryEntity.fetchRequest()
         request.resultType = .managedObjectResultType
         
         do {
             let results = try store.context.fetch(request)
-            return results.compactMap { result in
-                guard let category = result as? NSManagedObject else { return nil }
-                return Category(
-                    name: category.value(forKey: "name") as! String,
-                    imageName: category.value(forKey: "imageName") as! String,
-                    subcategories: (category.value(forKey: "subcategories") as? [String]) ?? []
-                )
-            }
+            return results
         } catch {
             print("Error fetching categories: \(error)")
             return []
         }
     }
     
+    func fetchSubCategories(from categoryName: String) -> [String] {
+            let request = CategoryEntity.fetchRequest()
+            request.predicate = NSPredicate(format: "name == %@", categoryName)
+            
+            do {
+                let results = try store.context.fetch(request)
+                return results.first?.subcategories as? [String] ?? []
+            } catch {
+                print("Error fetching subcategories: \(error)")
+                return []
+            }
+        }
+    
     func addCategory(name: String, imageName: String, subcategories: [String]) {
-        let newCategory = NSEntityDescription.insertNewObject(forEntityName: "CategoryEntity", into: store.context)
-        newCategory.setValue(UUID(), forKey: "id")
-        newCategory.setValue(name, forKey: "name")
-        newCategory.setValue(imageName, forKey: "imageName")
-        newCategory.setValue(subcategories, forKey: "subcategories")
+        let newCategory = CategoryEntity(context: store.context)
+        newCategory.id = UUID()
+        newCategory.name = name
+        newCategory.imageName = imageName
+        newCategory.subcategories = subcategories as NSObject
         
         saveContext()
     }
     
-    func deleteCategory(category: Category) {
-        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "CategoryEntity")
-        request.predicate = NSPredicate(format: "name == %@", category.name)
-        
-        do {
-            if let results = try store.context.fetch(request) as? [NSManagedObject] {
-                for result in results {
-                    store.context.delete(result)
-                }
-                saveContext()
-            }
-        } catch {
-            print("Error deleting category: \(error)")
+    func deleteCategory(category: CategoryEntity) {
+            store.context.delete(category)
+            saveContext()
         }
-    }
-
+    
     func deleteSubcategory(categoryName: String, subcategoryName: String) {
-        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "CategoryEntity")
+            let request = CategoryEntity.fetchRequest()
         request.predicate = NSPredicate(format: "name == %@", categoryName)
-        
-        do {
-            if let results = try store.context.fetch(request) as? [NSManagedObject], let category = results.first {
-                var subcategories = category.value(forKey: "subcategories") as? [String] ?? []
-                subcategories.removeAll { $0 == subcategoryName }
-                category.setValue(subcategories, forKey: "subcategories")
-                saveContext()
+          
+            
+            do {
+                if let result = try store.context.fetch(request).first {
+                    if var subcategories = result.subcategories as? [String], let index = subcategories.firstIndex(of: subcategoryName) {
+                        subcategories.remove(at: index)
+                        result.subcategories = subcategories as NSObject
+                        saveContext()
+                    }
+                }
+            } catch {
+                print("Error deleting subcategory: \(error)")
             }
-        } catch {
-            print("Error deleting subcategory: \(error)")
         }
-    }
     
     private func saveContext() {
         if store.context.hasChanges {
