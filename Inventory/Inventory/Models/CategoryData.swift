@@ -19,19 +19,19 @@ let categories = [
     Category(name: "Elektronik", imageName: "elektro", subcategories: [
         "Smartphones", "Laptops", "Tablets", "Fernseher", "Kameras", "Kopfhörer", "Lautsprecher"
     ]),
-    Category(name: "Haushaltsgeräte", imageName: "pic", subcategories: [
+    Category(name: "Haushaltsgeräte", imageName: "haushalt", subcategories: [
         "Kühlschränke", "Waschmaschinen", "Geschirrspüler", "Mikrowellen", "Staubsauger", "Kaffeemaschinen"
     ]),
-    Category(name: "Möbel", imageName: "pic", subcategories: [
+    Category(name: "Möbel", imageName: "moebel", subcategories: [
         "Sofas", "Tische", "Stühle", "Betten", "Schränke", "Regale"
     ]),
-    Category(name: "Kleidung", imageName: "pic", subcategories: [
+    Category(name: "Kleidung", imageName: "shirt", subcategories: [
         "Hemden", "Hosen", "Jacken", "Schuhe", "Accessoires", "Sportbekleidung"
     ]),
-    Category(name: "Bürobedarf", imageName: "pic", subcategories: [
+    Category(name: "Bürobedarf", imageName: "buero", subcategories: [
         "Stifte", "Notizbücher", "Ordner", "Drucker", "Papier", "Büroklammern"
     ]),
-    Category(name: "Lebensmittel", imageName: "pic", subcategories: [
+    Category(name: "Lebensmittel", imageName: "food", subcategories: [
         "Obst", "Gemüse", "Fleisch", "Milchprodukte", "Konserven", "Gewürze"
     ]),
     Category(name: "Spielzeug", imageName: "toys", subcategories: [

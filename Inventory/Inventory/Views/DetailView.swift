@@ -16,6 +16,7 @@ struct DetailView: View {
     @State private var selectedImageName: String = ""
     @Environment(\.presentationMode) var presentationMode
     
+    
     var body: some View {
         Form {
             Section(header: Text("Name des Inventars")) {
@@ -30,7 +31,10 @@ struct DetailView: View {
             }
             Section(header: Text("Bild")) {
                
-                ImageRollerView(selectedImageName: $selectedImageName, images: ImageAsset.allCases)
+    //            ImageRollerViewCore(selectedImageName: $selectedImageName, images: ImageAsset.allCases)     //fürCoreData
+                  ImageRollerView(selectedImageName: $selectedImageName, searchQuery: "toys, food, car")   //fürApi
+                
+                
                     .frame(height: 200)
                 
                

@@ -17,6 +17,7 @@ struct AddItemView: View {
     @ObservedObject var viewModel = InventoryViewModel()
     let category: String
     let subcategory: String
+    @State private var selectedImageName: String = ""      //fürApi
 
     var body: some View {
         NavigationStack {
@@ -34,7 +35,10 @@ struct AddItemView: View {
                     }
                 }
                 
-                ImageRollerView(selectedImageName: $imageName, images: ImageAsset.allCases)
+//                ImageRollerViewCore(selectedImageName: $imageName, images: ImageAsset.allCases)  //für CoreData
+                  ImageRollerView(selectedImageName: $selectedImageName, searchQuery: "toys, food, car")  //für Api
+                
+                
                     .frame(height: 200)
                     .padding()
                     .border(Color.gray.opacity(0.5), width: 1)
