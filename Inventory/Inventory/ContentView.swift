@@ -11,12 +11,12 @@ struct ContentView: View {
     @State private var isActive = false
     @State private var scale: CGFloat = 3.0
     @State private var opacity: Double = 0.0
-    @EnvironmentObject var viewModel: InventoryViewModel
+    @StateObject private var viewModel = InventoryViewModel()
     
     var body: some View {
         Group {
             if isActive {
-                CategorysView()
+                CategoryView()
                     .environmentObject(viewModel)
                     
             } else {

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5D37F9712C4F19870022F9F9 /* CategorysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37F9702C4F19870022F9F9 /* CategorysView.swift */; };
+		5D37F9712C4F19870022F9F9 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37F9702C4F19870022F9F9 /* CategoryView.swift */; };
 		5D37F9732C4F1A160022F9F9 /* CategoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37F9722C4F1A160022F9F9 /* CategoryData.swift */; };
 		5D37F9752C4F1D580022F9F9 /* SubcategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37F9742C4F1D580022F9F9 /* SubcategoryView.swift */; };
 		5D37F9772C4F1E460022F9F9 /* CategoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37F9762C4F1E460022F9F9 /* CategoryItemView.swift */; };
@@ -29,7 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5D37F9702C4F19870022F9F9 /* CategorysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorysView.swift; sourceTree = "<group>"; };
+		5D37F9702C4F19870022F9F9 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		5D37F9722C4F1A160022F9F9 /* CategoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryData.swift; sourceTree = "<group>"; };
 		5D37F9742C4F1D580022F9F9 /* SubcategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcategoryView.swift; sourceTree = "<group>"; };
 		5D37F9762C4F1E460022F9F9 /* CategoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItemView.swift; sourceTree = "<group>"; };
@@ -66,7 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				5D37F9742C4F1D580022F9F9 /* SubcategoryView.swift */,
-				5D37F9702C4F19870022F9F9 /* CategorysView.swift */,
+				5D37F9702C4F19870022F9F9 /* CategoryView.swift */,
 				5D37F9822C5056490022F9F9 /* AddCategoryView.swift */,
 				5D37F97A2C4FB31C0022F9F9 /* InventoryListView.swift */,
 				5D75D2482C4E6E61005405AF /* AddItemView.swift */,
@@ -245,7 +245,7 @@
 				5D37F97D2C4FFEE00022F9F9 /* ContentView.swift in Sources */,
 				5D37F98A2C5145B00022F9F9 /* ImageRollerView.swift in Sources */,
 				5D37F9752C4F1D580022F9F9 /* SubcategoryView.swift in Sources */,
-				5D37F9712C4F19870022F9F9 /* CategorysView.swift in Sources */,
+				5D37F9712C4F19870022F9F9 /* CategoryView.swift in Sources */,
 				5D75D2492C4E6E61005405AF /* AddItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -118,6 +118,38 @@ class InventoryRepository {
         saveContext()
     }
     
+    func deleteCategory(category: Category) {
+        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "CategoryEntity")
+        request.predicate = NSPredicate(format: "name == %@", category.name)
+        
+        do {
+            if let results = try store.context.fetch(request) as? [NSManagedObject] {
+                for result in results {
+                    store.context.delete(result)
+                }
+                saveContext()
+            }
+        } catch {
+            print("Error deleting category: \(error)")
+        }
+    }
+
+    func deleteSubcategory(categoryName: String, subcategoryName: String) {
+        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "CategoryEntity")
+        request.predicate = NSPredicate(format: "name == %@", categoryName)
+        
+        do {
+            if let results = try store.context.fetch(request) as? [NSManagedObject], let category = results.first {
+                var subcategories = category.value(forKey: "subcategories") as? [String] ?? []
+                subcategories.removeAll { $0 == subcategoryName }
+                category.setValue(subcategories, forKey: "subcategories")
+                saveContext()
+            }
+        } catch {
+            print("Error deleting subcategory: \(error)")
+        }
+    }
+    
     private func saveContext() {
         if store.context.hasChanges {
             do {

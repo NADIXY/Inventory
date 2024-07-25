@@ -58,6 +58,17 @@ class InventoryViewModel: ObservableObject {
         fetchCategories()
     }
     
+    func deleteCategory(category: Category) {
+        repository.deleteCategory(category: category)
+        fetchCategories()
+    }
+
+    func deleteSubcategory(categoryName: String, subcategoryName: String) {
+        repository.deleteSubcategory(categoryName: categoryName, subcategoryName: subcategoryName)
+        fetchCategories()
+        fetchInventoryItems(category: categoryName)
+        
+    }
 }
 
 

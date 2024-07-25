@@ -30,6 +30,15 @@ struct SubcategoryView: View {
                             NavigationLink(destination: InventoryListView(category: category.name, subcategory: subcategory)) {
                                 SubcategoryItemView(itemCount: viewModel.itemCount(for: category.name, subcategory: subcategory), subcategory: subcategory)
                             }
+                            .contextMenu {
+                                Button(action: {
+                                    viewModel.deleteSubcategory(categoryName: category.name, subcategoryName: subcategory)
+                                    viewModel.fetchCategories()
+                                }) {
+                                    Text("Unterkategorie löschen")
+                                    Image(systemName: "trash")
+                                }
+                            }
                         }
                     }
                     .padding()

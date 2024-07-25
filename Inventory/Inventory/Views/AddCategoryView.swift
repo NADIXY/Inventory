@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddCategoryView: View {
-    @EnvironmentObject var viewModel: InventoryViewModel
+    @ObservedObject var viewModel: InventoryViewModel
     @Environment(\.presentationMode) var presentationMode
 
     @State private var name = ""
@@ -17,25 +17,25 @@ struct AddCategoryView: View {
     @State private var newSubcategory = ""
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
-                Section(header: Text("Category Details")) {
+                Section(header: Text("Kategorie Name")) {
                     TextField("Name", text: $name)
-                    TextField("Image Name", text: $imageName)
+                    
                 }
                 
-                Section(header: Text("Subcategories")) {
+                Section(header: Text("Unterkategorien")) {
                     ForEach(subcategories, id: \.self) { subcategory in
                         Text(subcategory)
                     }
-                    TextField("New Subcategory", text: $newSubcategory)
+                    TextField("Neue Unterkategorie", text: $newSubcategory)
                     Button(action: {
                         if !newSubcategory.isEmpty {
                             subcategories.append(newSubcategory)
                             newSubcategory = ""
                         }
                     }) {
-                        Text("Add Subcategory")
+                        Text("Hinzufügen")
                     }
                 }
                 
@@ -43,14 +43,14 @@ struct AddCategoryView: View {
                     viewModel.addCategory(name: name, imageName: imageName, subcategories: subcategories)
                     presentationMode.wrappedValue.dismiss()
                 }) {
-                    Text("Save")
+                    Text("Füge deine Kategorie hinzu")
                 }
             }
-            .navigationBarTitle("Add Category")
+            .navigationBarTitle("Kategorie hinzufügen")
             .navigationBarItems(trailing: Button(action: {
                 presentationMode.wrappedValue.dismiss()
             }) {
-                Text("Cancel")
+                Text("Abbrechen")
             })
         }
     }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CategorysView: View {
+struct CategoryView: View {
     @EnvironmentObject var viewModel: InventoryViewModel
     @State private var showAddCategory = false
 
@@ -30,6 +30,14 @@ struct CategorysView: View {
                             NavigationLink(destination: SubcategoryView(category: category)) {
                                 CategoryItemView(category: category)
                             }
+                            .contextMenu {
+                                Button(action: {
+                                    viewModel.deleteCategory(category: category)
+                                }) {
+                                    Text("Kategorie löschen")
+                                    Image(systemName: "trash")
+                                }
+                            }
                         }
                     }
                     .padding()
@@ -46,15 +54,15 @@ struct CategorysView: View {
                         showAddCategory.toggle()
                     }) {
                         Image(systemName: "plus")
-                           
-                    }
-                    .sheet(isPresented: $showAddCategory) {
-                        AddCategoryView(viewModel: viewModel)
+                    
                     }
                 }
             }
             .onAppear {
                 viewModel.fetchCategories()
+            }
+            .sheet(isPresented: $showAddCategory) {
+                AddCategoryView(viewModel: viewModel)
             }
         }
     }
