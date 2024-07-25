@@ -16,7 +16,6 @@ class InventoryViewModel: ObservableObject {
     private let repository = InventoryRepository()
     
     init() {
-        
         fetchInventoryItems()
         fetchCategories()
     }

@@ -13,6 +13,7 @@ struct AddItemView: View {
     @State private var quantity: String = ""
     @State private var info: String = ""
     @State private var imageName: String = ""
+    @State private var showAlert = false
     @ObservedObject var viewModel = InventoryViewModel()
     let category: String
     let subcategory: String
@@ -42,15 +43,24 @@ struct AddItemView: View {
                 
                 HStack {
                     Button(action: {
-                        if let quantity = Int64(quantity), !imageName.isEmpty {
+                        if let quantity = Int64(quantity), !name.isEmpty, !imageName.isEmpty {
                             viewModel.addInventoryItem(name: name, quantity: quantity, imageName: imageName, info: info, category: category, subcategory: subcategory)
                             presentationMode.wrappedValue.dismiss()
+                        } else {
+                            showAlert = true
                         }
                     }) {
                         Text("Speichern")
                             .bold()
                             .foregroundColor(.gray)
                     }
+                    .alert(isPresented: $showAlert) {
+                                           Alert(
+                                               title: Text("Fehler"),
+                                               message: Text("Bitte füllen Sie alle Felder aus."),
+                                               dismissButton: .default(Text("OK"))
+                                           )
+                                       }
                     
                     Spacer()
                     

@@ -33,9 +33,7 @@ class InventoryRepository {
     
     func fetchInventoryItems(category: String? = nil, subcategory: String? = nil) -> [InventoryItem] {
         let request: NSFetchRequest<InventoryItem> = InventoryItem.fetchRequest()
-        
         var predicates = [NSPredicate]()
-        
         if let category = category {
             predicates.append(NSPredicate(format: "category == %@", category))
         }
@@ -47,7 +45,6 @@ class InventoryRepository {
         if !predicates.isEmpty {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         }
-        
         do {
             return try store.context.fetch(request)
         } catch {
@@ -90,8 +87,6 @@ class InventoryRepository {
     
     func fetchCategories() -> [CategoryEntity] {
         let request = CategoryEntity.fetchRequest()
-        
-        
         do {
             return try store.context.fetch(request)
            
@@ -131,9 +126,8 @@ class InventoryRepository {
     
     func deleteSubcategory(categoryName: String, subcategoryName: String) {
             let request = CategoryEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "name == %@", categoryName)
+            request.predicate = NSPredicate(format: "name == %@", categoryName)
           
-            
             do {
                 if let result = try store.context.fetch(request).first {
                     if var subcategories = result.subcategories as? [String], let index = subcategories.firstIndex(of: subcategoryName) {
