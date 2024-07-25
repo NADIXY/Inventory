@@ -25,7 +25,7 @@ struct CategoryItemView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 60, height: 60)
-                        .foregroundColor(.gray)
+                        .foregroundColor(.white)
                 }
             } else {
                 // If no image name is available, show a placeholder
@@ -33,7 +33,7 @@ struct CategoryItemView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 60, height: 60)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.white)
             }
             
             Text(category.name ?? "Unbekannt")

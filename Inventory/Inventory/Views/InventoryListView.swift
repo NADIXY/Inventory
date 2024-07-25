@@ -32,7 +32,7 @@ struct InventoryListView: View {
                                             .frame(width: 60, height: 60)
                                             .clipped()
                                     } else {
-                                        Image("inventar")
+                                        Image("default")
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: 60, height: 60)
