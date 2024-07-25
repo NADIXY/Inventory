@@ -42,7 +42,7 @@ struct AddCategoryView: View {
                 }
                 
                 Button(action: {
-                                    if !name.isEmpty && !imageName.isEmpty && !subcategories.isEmpty {
+                                    if !name.isEmpty {
                                         viewModel.addCategory(name: name, imageName: imageName, subcategories: subcategories)
                                         presentationMode.wrappedValue.dismiss()
                                     } else {
