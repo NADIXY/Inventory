@@ -33,6 +33,13 @@ enum ImageAsset: String, CaseIterable {
     case image23 = "drum"
     case image24 = "betten"
     case image25 = "toilettenpapier"
+    case image26 = "elektro"
+    case image27 = "book"
+    case image28 = "garden"
+    case image29 = "car"
+    case image30 = "makeup"
+    case image31 = "sport"
+    case image32 = "toys"
     
     
     
@@ -89,6 +96,20 @@ enum ImageAsset: String, CaseIterable {
             return "Bett"
         case .image25:
             return "Toilettenpapier"
+        case .image26:
+            return "Elektronik"
+        case .image27:
+            return "Bücher"
+        case .image28:
+            return "Garten"
+        case .image29:
+            return "Auto"
+        case .image30:
+            return "Kosmetik"
+        case .image31:
+            return "Sportartikel"
+        case .image32:
+            return "Spielsachen"
         }
     }
         

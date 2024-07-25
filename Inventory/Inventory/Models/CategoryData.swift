@@ -5,63 +5,51 @@
 //  Created by Lutz Brückner on 23.07.24.
 //
 
-import SwiftUI
-import CoreData
+import Foundation
 
-
-struct Inventory: Identifiable {
-    let id: UUID
-    let name: String
-    let info: String
-    let quantity: Int64
-    let image: Data?
-    let category: String
-    let subcategory: String
-    let imageName: String
-}
 
 struct Category: Identifiable {
     let id = UUID()
-    let name: String
-    let imageName: String
+    let name: String?
+    let imageName: String?
     let subcategories: [String]
 }
 
 let categories = [
-    Category(name: "Elektronik", imageName: "", subcategories: [
+    Category(name: "Elektronik", imageName: "elektro", subcategories: [
         "Smartphones", "Laptops", "Tablets", "Fernseher", "Kameras", "Kopfhörer", "Lautsprecher"
     ]),
-    Category(name: "Haushaltsgeräte", imageName: "", subcategories: [
+    Category(name: "Haushaltsgeräte", imageName: "default", subcategories: [
         "Kühlschränke", "Waschmaschinen", "Geschirrspüler", "Mikrowellen", "Staubsauger", "Kaffeemaschinen"
     ]),
-    Category(name: "Möbel", imageName: "", subcategories: [
+    Category(name: "Möbel", imageName: "default", subcategories: [
         "Sofas", "Tische", "Stühle", "Betten", "Schränke", "Regale"
     ]),
-    Category(name: "Kleidung", imageName: "", subcategories: [
+    Category(name: "Kleidung", imageName: "default", subcategories: [
         "Hemden", "Hosen", "Jacken", "Schuhe", "Accessoires", "Sportbekleidung"
     ]),
-    Category(name: "Bürobedarf", imageName: "", subcategories: [
+    Category(name: "Bürobedarf", imageName: "default", subcategories: [
         "Stifte", "Notizbücher", "Ordner", "Drucker", "Papier", "Büroklammern"
     ]),
-    Category(name: "Lebensmittel", imageName: "", subcategories: [
+    Category(name: "Lebensmittel", imageName: "default", subcategories: [
         "Obst", "Gemüse", "Fleisch", "Milchprodukte", "Konserven", "Gewürze"
     ]),
-    Category(name: "Spielzeug", imageName: "", subcategories: [
+    Category(name: "Spielzeug", imageName: "toys", subcategories: [
         "Puppen", "Bauklötze", "Brettspiele", "Videospiele", "Puzzles", "Lernspielzeug"
     ]),
-    Category(name: "Sportartikel", imageName: "", subcategories: [
+    Category(name: "Sportartikel", imageName: "sport", subcategories: [
         "Fahrräder", "Laufbänder", "Hanteln", "Sportbekleidung", "Bälle", "Campingausrüstung"
     ]),
-    Category(name: "Kosmetik und Pflege", imageName: "",  subcategories: [
+    Category(name: "Kosmetik", imageName: "makeup",  subcategories: [
         "Hautpflege", "Haarpflege", "Make-up", "Parfums", "Zahnpflege", "Hygieneprodukte"
     ]),
-    Category(name: "Bücher und Medien", imageName: "", subcategories: [
+    Category(name: "Bücher", imageName: "book", subcategories: [
         "Romane", "Sachbücher", "Zeitschriften", "DVDs", "CDs", "E-Books"
     ]),
-    Category(name: "Gartenbedarf", imageName: "", subcategories: [
+    Category(name: "Gartenbedarf", imageName: "garden", subcategories: [
         "Pflanzen", "Gartengeräte", "Dünger", "Samen", "Gartenmöbel", "Bewässerungssysteme"
     ]),
-    Category(name: "Autozubehör",imageName: "", subcategories: [
+    Category(name: "Autozubehör",imageName: "car", subcategories: [
         "Reifen", "Autoelektronik", "Reinigungsprodukte", "Ersatzteile", "Werkzeuge", "Sicherheitsausrüstung"
     ])
 ]

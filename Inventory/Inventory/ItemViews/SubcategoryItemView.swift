@@ -30,9 +30,9 @@ struct SubcategoryItemView: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.teal)
+        .background(Color.gray)
         .foregroundColor(.white)
-        .cornerRadius(10)
+        .cornerRadius(20)
         .frame(width: 150, height: 150)
         .shadow(radius: 10)
     }

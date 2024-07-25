@@ -90,11 +90,11 @@ class InventoryRepository {
     
     func fetchCategories() -> [CategoryEntity] {
         let request = CategoryEntity.fetchRequest()
-        request.resultType = .managedObjectResultType
+        
         
         do {
-            let results = try store.context.fetch(request)
-            return results
+            return try store.context.fetch(request)
+           
         } catch {
             print("Error fetching categories: \(error)")
             return []
