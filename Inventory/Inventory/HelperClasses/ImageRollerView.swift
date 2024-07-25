@@ -9,23 +9,23 @@ import SwiftUI
 
 struct ImageRollerView: View {
     @Binding var selectedImageName: String
-    let imageNames: [String]
+    let images: [ImageAsset]
 
     var body: some View {
         VStack {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(imageNames, id: \.self) { imageName in
+                    ForEach(images, id: \.self) { image in
                         VStack {
-                            Image(imageName)
+                            Image(image.rawValue)
                                 .resizable()
                                 .frame(width: 100, height: 100)
-                                .clipShape(Circle())
+                                .clipShape(Rectangle())
                                 .onTapGesture {
-                                    selectedImageName = imageName
+                                    selectedImageName = image.rawValue
                                 }
-                                .border(selectedImageName == imageName ? Color.blue : Color.clear, width: 2)
-                            Text(imageName)
+                                .border(selectedImageName == image.rawValue ? Color.blue : Color.clear, width: 2)
+                            Text(image.displayName)
                                 .font(.caption)
                                 .foregroundColor(.primary)
                         }

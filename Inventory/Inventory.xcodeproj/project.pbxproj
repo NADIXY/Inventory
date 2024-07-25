@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5D37F96D2C4EC0940022F9F9 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37F96C2C4EC0940022F9F9 /* ImagePickerView.swift */; };
 		5D37F9712C4F19870022F9F9 /* CategorysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37F9702C4F19870022F9F9 /* CategorysView.swift */; };
 		5D37F9732C4F1A160022F9F9 /* CategoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37F9722C4F1A160022F9F9 /* CategoryData.swift */; };
 		5D37F9752C4F1D580022F9F9 /* SubcategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D37F9742C4F1D580022F9F9 /* SubcategoryView.swift */; };
@@ -30,7 +29,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5D37F96C2C4EC0940022F9F9 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		5D37F9702C4F19870022F9F9 /* CategorysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorysView.swift; sourceTree = "<group>"; };
 		5D37F9722C4F1A160022F9F9 /* CategoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryData.swift; sourceTree = "<group>"; };
 		5D37F9742C4F1D580022F9F9 /* SubcategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcategoryView.swift; sourceTree = "<group>"; };
@@ -64,6 +62,63 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D37F9912C51E13D0022F9F9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5D37F9742C4F1D580022F9F9 /* SubcategoryView.swift */,
+				5D37F9702C4F19870022F9F9 /* CategorysView.swift */,
+				5D37F9822C5056490022F9F9 /* AddCategoryView.swift */,
+				5D37F97A2C4FB31C0022F9F9 /* InventoryListView.swift */,
+				5D75D2482C4E6E61005405AF /* AddItemView.swift */,
+				5D75D24A2C4E734B005405AF /* DetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5D37F9922C51E2650022F9F9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5D75D2462C4E6B9A005405AF /* InventoryViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		5D37F9932C51E2940022F9F9 /* ItemViews */ = {
+			isa = PBXGroup;
+			children = (
+				5D37F9762C4F1E460022F9F9 /* CategoryItemView.swift */,
+				5D37F9782C4FAEB50022F9F9 /* SubcategoryItemView.swift */,
+			);
+			path = ItemViews;
+			sourceTree = "<group>";
+		};
+		5D37F9942C51E2D30022F9F9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5D37F9722C4F1A160022F9F9 /* CategoryData.swift */,
+				5D37F9922C51E2650022F9F9 /* ViewModels */,
+				5D37F9952C51E2EF0022F9F9 /* Repository */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5D37F9952C51E2EF0022F9F9 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				5D75D2402C4E6187005405AF /* InventoryRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		5D37F9962C51E3680022F9F9 /* HelperClasses */ = {
+			isa = PBXGroup;
+			children = (
+				5D37F98B2C5148CE0022F9F9 /* ImageAsset.swift */,
+				5D37F9892C5145B00022F9F9 /* ImageRollerView.swift */,
+			);
+			path = HelperClasses;
+			sourceTree = "<group>";
+		};
 		5D75D21F2C4E5A56005405AF = {
 			isa = PBXGroup;
 			children = (
@@ -85,24 +140,14 @@
 			children = (
 				5D75D22B2C4E5A56005405AF /* InventoryApp.swift */,
 				5D37F97C2C4FFEE00022F9F9 /* ContentView.swift */,
-				5D75D22F2C4E5A57005405AF /* Assets.xcassets */,
-				5D75D2362C4E5A57005405AF /* Inventory.xcdatamodeld */,
-				5D75D2312C4E5A57005405AF /* Preview Content */,
 				5D75D23E2C4E5CCC005405AF /* PersistenceStore.swift */,
-				5D75D2402C4E6187005405AF /* InventoryRepository.swift */,
-				5D37F9822C5056490022F9F9 /* AddCategoryView.swift */,
-				5D37F9702C4F19870022F9F9 /* CategorysView.swift */,
-				5D37F9782C4FAEB50022F9F9 /* SubcategoryItemView.swift */,
-				5D37F9742C4F1D580022F9F9 /* SubcategoryView.swift */,
-				5D37F97A2C4FB31C0022F9F9 /* InventoryListView.swift */,
-				5D37F9762C4F1E460022F9F9 /* CategoryItemView.swift */,
-				5D37F9722C4F1A160022F9F9 /* CategoryData.swift */,
-				5D75D2462C4E6B9A005405AF /* InventoryViewModel.swift */,
-				5D75D2482C4E6E61005405AF /* AddItemView.swift */,
-				5D37F9892C5145B00022F9F9 /* ImageRollerView.swift */,
-				5D37F98B2C5148CE0022F9F9 /* ImageAsset.swift */,
-				5D37F96C2C4EC0940022F9F9 /* ImagePickerView.swift */,
-				5D75D24A2C4E734B005405AF /* DetailView.swift */,
+				5D75D2362C4E5A57005405AF /* Inventory.xcdatamodeld */,
+				5D75D22F2C4E5A57005405AF /* Assets.xcassets */,
+				5D37F9912C51E13D0022F9F9 /* Views */,
+				5D75D2312C4E5A57005405AF /* Preview Content */,
+				5D37F9962C51E3680022F9F9 /* HelperClasses */,
+				5D37F9942C51E2D30022F9F9 /* Models */,
+				5D37F9932C51E2940022F9F9 /* ItemViews */,
 			);
 			path = Inventory;
 			sourceTree = "<group>";
@@ -194,7 +239,6 @@
 				5D37F98C2C5148CE0022F9F9 /* ImageAsset.swift in Sources */,
 				5D75D22C2C4E5A56005405AF /* InventoryApp.swift in Sources */,
 				5D37F97B2C4FB31C0022F9F9 /* InventoryListView.swift in Sources */,
-				5D37F96D2C4EC0940022F9F9 /* ImagePickerView.swift in Sources */,
 				5D75D2412C4E6187005405AF /* InventoryRepository.swift in Sources */,
 				5D75D23F2C4E5CCC005405AF /* PersistenceStore.swift in Sources */,
 				5D75D2472C4E6B9A005405AF /* InventoryViewModel.swift in Sources */,

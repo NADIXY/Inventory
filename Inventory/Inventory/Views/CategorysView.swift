@@ -46,7 +46,7 @@ struct CategorysView: View {
                         showAddCategory.toggle()
                     }) {
                         Image(systemName: "plus")
-                            .font(.title)
+                           
                     }
                     .sheet(isPresented: $showAddCategory) {
                         AddCategoryView(viewModel: viewModel)

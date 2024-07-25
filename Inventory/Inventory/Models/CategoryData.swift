@@ -17,6 +17,7 @@ struct Inventory: Identifiable {
     let image: Data?
     let category: String
     let subcategory: String
+    let imageName: String
 }
 
 struct Category: Identifiable {

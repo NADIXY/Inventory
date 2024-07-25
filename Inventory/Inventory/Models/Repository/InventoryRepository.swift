@@ -65,6 +65,7 @@ class InventoryRepository {
         newItem.image = loadImageData(from: imageName)
         newItem.category = category
         newItem.subcategory = subcategory
+        newItem.imageName = imageName
         saveContext()
     }
     
@@ -78,6 +79,7 @@ class InventoryRepository {
         item.quantity = quantity
         item.info = info
         item.image = loadImageData(from: imageName)
+        item.imageName = imageName
         saveContext()
     }
     

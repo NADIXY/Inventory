@@ -13,15 +13,9 @@ struct AddItemView: View {
     @State private var quantity: String = ""
     @State private var info: String = ""
     @State private var imageName: String = ""
-    @State private var showImageRoller = false
-    @StateObject var viewModel: InventoryViewModel
+    @ObservedObject var viewModel = InventoryViewModel()
     let category: String
     let subcategory: String
-    
-    // Bildnamen aus der Enum abrufen
-    var imageNames: [String] {
-        ImageAsset.allCases.map { $0.name }
-    }
 
     var body: some View {
         NavigationStack {
@@ -39,11 +33,10 @@ struct AddItemView: View {
                     }
                 }
                 
-                
-                ImageRollerView(selectedImageName: $imageName, imageNames: imageNames)
+                ImageRollerView(selectedImageName: $imageName, images: ImageAsset.allCases)
                     .frame(height: 200)
                     .padding()
-                    .border(Color.gray.opacity(0.5), width: 1) 
+                    .border(Color.gray.opacity(0.5), width: 1)
                 
                 Spacer()
                 
@@ -54,20 +47,31 @@ struct AddItemView: View {
                             presentationMode.wrappedValue.dismiss()
                         }
                     }) {
-                        Text("Save")
+                        Text("Speichern")
                             .bold()
+                            .foregroundColor(.gray)
                     }
+                    
+                    Spacer()
                     
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
                     }) {
-                        Text("Cancel")
+                        Text("Abrechen")
                             .bold()
+                            .foregroundColor(.gray)
                     }
                 }
                 .padding()
             }
-            .navigationBarTitle("Add Item", displayMode: .inline)
+            .navigationBarTitle("Inventar hinzufügen", displayMode: .inline)
+            
         }
+    }
+}
+
+struct AddItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddItemView(viewModel: InventoryViewModel(), category: "Sport", subcategory: "Yoga")
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddCategoryView: View {
-    @ObservedObject var viewModel: InventoryViewModel
+    @EnvironmentObject var viewModel: InventoryViewModel
     @Environment(\.presentationMode) var presentationMode
 
     @State private var name = ""
